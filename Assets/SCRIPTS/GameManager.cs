@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -14,5 +15,6 @@ public class GameManager : MonoBehaviour
         GameObject snakeHeadGameObject = new GameObject("Snake_Head");
         SpriteRenderer snakeSpriteRenderer = snakeHeadGameObject.AddComponent<SpriteRenderer>();
         snakeSpriteRenderer.sprite = GameAssets.Instance.snakeHeadSprite;
+        snakeSpriteRenderer.AddComponent<Snake>();
     }
 }
