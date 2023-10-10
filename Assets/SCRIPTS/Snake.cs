@@ -13,7 +13,7 @@ public class Snake : MonoBehaviour
     private float gridMoveTimer; //temps actual, contador
     private float gridMoveTimerMax = 1f; //cada quant es mourà s'snake
 
-
+    private LevelGrid levelGrid;
     void Awake()
     {
         startGridPosition = new Vector2Int(0, 0);
@@ -27,6 +27,16 @@ public class Snake : MonoBehaviour
         HandleMoveDirection();
         HandleMoveMovement();
     }
+
+    /* funció que tenc perquè sa meva variable levelGrid guardi 
+     * sa informació des nou level grid que he creat a nes gameManager
+     */
+    public void Setup(LevelGrid levelGrid)
+    {
+        //sa meva variable levelGrid serà igual a nes paràmetre que li estic ficant
+        this.levelGrid = levelGrid;
+    }
+
     private void HandleMoveDirection()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
