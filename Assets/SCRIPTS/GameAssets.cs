@@ -7,10 +7,11 @@ public class GameAssets : MonoBehaviour
     public static GameAssets Instance { get; private set; }
 
     public Sprite snakeHeadSprite; //asignar sprite a s'inspector
+    public Sprite snakeBodySprite;
     public Sprite foodSprite;
 
     private void Awake()
-    { 
+    {
         /*Nova forma de fer una variable statica:
          * Feim que quant detecti una nova còpia de Instance,
          * en lloc d'eliminar-la, feim que surti un error que
@@ -18,20 +19,11 @@ public class GameAssets : MonoBehaviour
          * se farà quant es viatgi entre escenes) i així borrar sa 
          * nova còpia.
          */
-        if(Instance != null)
+        if (Instance != null)
         {
             Debug.LogError("There's more than an Instance");
         }
         Instance = this;
 
-    }
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
     }
 }
