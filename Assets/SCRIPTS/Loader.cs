@@ -1,0 +1,48 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using System;
+
+public static class Loader 
+{
+    // Variable que guarda una función sin inputs ni output
+    private static Action loaderCallbackAction;
+
+    // Una clase static tiene todas sus variables y funciones también static
+
+    // Lista de nuestras escenas
+    public enum Scene
+    {
+        Game,
+        LoadingScene
+    }
+
+
+    public static void Load(Scene scene) //jo el crid amb es nom Scene.Game
+    {
+        // Asignas en loaderCallbackAction una función que no recibe parámetros y ejecuta la línea 25
+        loaderCallbackAction = () => { SceneManager.LoadScene(scene.ToString());}; //game
+
+
+        // Llamamos a la escena de carga
+        SceneManager.LoadScene(Scene.LoadingScene.ToString());
+    }
+
+    public static void LoaderCallback()
+    {
+        if (loaderCallbackAction != null)
+        {
+            loaderCallbackAction();
+            loaderCallbackAction = null;
+        }
+    }
+
+
+    // () => { cuerpo función }
+    /*
+     * private void NombreAux(){
+     * cuerpo función
+     * }
+     */
+}
