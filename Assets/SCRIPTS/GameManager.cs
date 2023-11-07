@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private bool theGameIsPaused = false;
+
     public static GameManager Instance { get; set; }
 
     public const int POINTS = 100; //constant per guardar es punts que s'ha de sumar/rstar
@@ -55,6 +57,22 @@ public class GameManager : MonoBehaviour
         //aquí cridam sa funció perquè es text s'acutialitzi es text de forma visual
         AddScore(0); 
     }
+
+    private void Update()
+    {
+
+        //si pitj ESC quant es game no esta pausado, el pauso
+        if((Input.GetKeyDown(KeyCode.Escape)) && (!theGameIsPaused))
+        {
+            if (theGameIsPaused)
+            {
+                
+                ResumeGame();
+            }
+            PauseGame();
+            
+        }
+    }
     /// <summary>
     /// funció que s'encarrega de mostrar sa puntuació 
     /// també se podria fer amb {get;private set;}
@@ -77,5 +95,18 @@ public class GameManager : MonoBehaviour
     public void SnakeDied()
     {
         GameOverUI.Instance.Show();
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+        PauseUI.Instance.Show();
+        theGameIsPaused = true;
+    }
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        PauseUI.Instance.Hide();
+        theGameIsPaused = true; //aquí ho hem posat perque es botons són lo que controlen es pause són es botons
     }
 }

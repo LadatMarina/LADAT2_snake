@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 
 public class Snake : MonoBehaviour
@@ -161,6 +162,8 @@ public class Snake : MonoBehaviour
 
     private State state;
 
+    private bool canMove = true;
+
     #endregion
 
     private void Awake()
@@ -203,6 +206,8 @@ public class Snake : MonoBehaviour
         if (gridMoveTimer >= gridMoveTimerMax)
         {
             gridMoveTimer -= gridMoveTimerMax; // Se reinicia el temporizador
+
+            SoundManager.PlaySound(SoundManager.Sound.SnakeMove);
 
             SnakeMovePosition previousSnakeMovePosition = null;
             if (snakeMovePositionsList.Count > 0)
@@ -262,6 +267,7 @@ public class Snake : MonoBehaviour
             }
 
             transform.position = new Vector3(gridPosition.x, gridPosition.y, 0);
+            canMove = true;
             transform.eulerAngles = new Vector3(0, 0, GetAngleFromVector(gridMoveDirectionVector));
             UpdateBodyParts();
         }
@@ -277,8 +283,13 @@ public class Snake : MonoBehaviour
         {
             if (gridMoveDirection != Direction.Down) // Si iba en horizontal
             {
-                // Cambio la dirección hacia arriba (0,1)
-                gridMoveDirection = Direction.Up;
+                if (canMove)
+                {
+                    canMove = false;
+                    // Cambio la dirección hacia arriba (0,1)
+                    gridMoveDirection = Direction.Up;
+                }
+                
             }
         }
 
@@ -289,7 +300,12 @@ public class Snake : MonoBehaviour
             // Mi dirección hasta ahora era horizontal
             if (gridMoveDirection != Direction.Up)
             {
-                gridMoveDirection = Direction.Down;
+                if(canMove)
+                {
+                    canMove = false;
+                    gridMoveDirection = Direction.Down;
+
+                }
             }
         }
 
@@ -298,7 +314,12 @@ public class Snake : MonoBehaviour
         {
             if (gridMoveDirection != Direction.Left)
             {
-                gridMoveDirection = Direction.Right;
+                if (canMove)
+                {
+                    canMove= false;
+                    gridMoveDirection = Direction.Right;
+
+                }
             }
         }
 
@@ -307,7 +328,12 @@ public class Snake : MonoBehaviour
         {
             if (gridMoveDirection != Direction.Right)
             {
-                gridMoveDirection = Direction.Left;
+                if (canMove)
+                {
+                    canMove= false;
+                    gridMoveDirection = Direction.Left;
+
+                }
             }
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,26 @@ public class GameAssets : MonoBehaviour
     public Sprite snakeHeadSprite; //asignar sprite a s'inspector
     public Sprite snakeBodySprite;
     public Sprite foodSprite;
+
+    public AudioClip buttonClickclip;
+    public AudioClip buttonOverClip;
+    public AudioClip snakeDieClip;
+    public AudioClip snakeEatClip;
+    public AudioClip snakeMoveClip;
+
+    public SoundAudioClip[] soundAudioClipsArray;
+
+
+    /// <SOUND AUDIO CLIP>
+    /// estructura que lligarà es enums i es audioclips
+    /// és de tipus serializable per poder accedir a ella des de inspector i asignar es audioclips de forma fàcil
+    /// </summary>
+    [Serializable] public class SoundAudioClip
+    {
+        public SoundManager.Sound sound; //un valor de s'enumerado sound 
+        public AudioClip audioClip; //un audioclip
+        //per tant només necessit dues línies i la resta ho faig des d'inspector
+    }
 
     private void Awake()
     {
